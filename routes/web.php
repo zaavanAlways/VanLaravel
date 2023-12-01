@@ -64,6 +64,8 @@ Route::get('/mahasiswa/all-join-elq',[MahasiswasController::class,'allJoinElq'])
 
 Route::get('/prodi/create',[ProdiController::class,'create']);
 Route::post('/prodi/store',[ProdiController::class,'store']);
+
+Route::get('/prodi',[ProdiController::class,'index'])->name('prodi.index');
 // Route::get('/halo',function(){
 //     // return "Halo Semua";
 //     return "<a href='". route('call'). "'>" . route('call'). "</a>";

@@ -13,8 +13,10 @@ class ProdiController extends Controller
 {
     //
     public function index(){
-        $kampus = "Universitas Multi Data Palembang";
-        return view('prodi.index')->with('kampus', $kampus);
+        // $kampus = "Universitas Multi Data Palembang";
+        // return view('prodi.index')->with('kampus', $kampus);
+        $prodis = Prodi::all();
+        return  view ('prodi.index')->with('prodis',$prodis);
     }
     
     public function allJoinFacade(){
@@ -45,7 +47,15 @@ class ProdiController extends Controller
         $validateData = $request->validate([
             'nama' => 'required|min:5|max:20',
         ]);
-        dump($validateData);
-        echo $validateData['nama'];
+        // dump($validateData);
+        // echo $validateData['nama'];
+
+        $prodi = new Prodi(); //buat object prodi
+        $prodi->nama = $validateData['nama']; //simpan nilai input($validateData['nama']) ke dalam property nama prodi ($prodi->nama)
+        $prodi->save(); //simpan ke dalam tabel prodi
+
+        //return "Data prodi $prodi->nama berhasil disimpan ke database"; //tampilkan pesan berhasil
+        $request->session()->flash('info',"Data Prodi $prodi->nama berhasil disimpan ke database");
+        return Route::redirect('prodi.create');
     }
 }
