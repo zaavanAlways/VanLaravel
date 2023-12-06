@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\MahasiswasController;
-use App\Models\Prodi;
-use App\Models\Mahasiswa;
+use App\Http\Controllers\ProdiController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,57 +13,63 @@ use App\Models\Mahasiswa;
 | routes are loaded by the RouteServiceProvider and all of them will
 | be assigned to the "web" middleware group. Make something great!
 |
-*/
+ */
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dosen',function(){
-    return view ('dosen');
+Route::get('/dosen', function () {
+    return view('dosen');
 });
 
-Route::get('/dosen/index',function(){
-    return view ('dosen.index');
+Route::get('/dosen/index', function () {
+    return view('dosen.index');
 });
 
-Route::get('/fakultas',function(){
+Route::get('/fakultas', function () {
     // return view('fakultas.index', ["ilkom" => "Fakultas Ilmu Komputer dan Rekayasa"]);
     // return view ('fakultas.index',["fakultas" => ["Fakultas Ilmu Komputer dan Rekayasa", "Fakultas Ilmu Ekonomi"]]);
     // return view('fakultas.index')->with("fakultas",["Fakultas Ilmu Komputer dan Rekayasa","Fakultas Ilmu Ekonomi"]);
     // $fakultas = ["Fakultas Ilmu Komputer dan Rekayasa", "Fakultas Ilmu Ekonomi"];
     // return view('fakultas.index', compact('fakultas'));
     $kampus = "Universitas Multi Data Palembang";
-    $fakultas = ["Fakultas Ilmu Komputer dan Rekayasa","Fakultas Ilmu Ekonomi"];
-    return view ('fakultas.index', compact('fakultas','kampus'));
+    $fakultas = ["Fakultas Ilmu Komputer dan Rekayasa", "Fakultas Ilmu Ekonomi"];
+    return view('fakultas.index', compact('fakultas', 'kampus'));
 });
-
 
 // Route::get('/prodi',[ProdiController::class, 'index']);
 
-Route::get('/mahasiswa/insert',[MahasiswasController::class, 'insert']);
-Route::get('/mahasiswa/update',[MahasiswasController::class, 'update']);
-Route::get('/mahasiswa/delete',[MahasiswasController::class, 'delete']);
-Route::get('/mahasiswa/select',[MahasiswasController::class, 'select']);
+Route::get('/mahasiswa/insert', [MahasiswasController::class, 'insert']);
+Route::get('/mahasiswa/update', [MahasiswasController::class, 'update']);
+Route::get('/mahasiswa/delete', [MahasiswasController::class, 'delete']);
+Route::get('/mahasiswa/select', [MahasiswasController::class, 'select']);
 
-Route::get('/mahasiswa/insert-qb',[MahasiswasController::class,'insertQb']);
-Route::get('/mahasiswa/update-qb',[MahasiswasController::class,'updateQb']);
-Route::get('/mahasiswa/delete-qb',[MahasiswasController::class,'deleteQb']);
-Route::get('/mahasiswa/select-qb',[MahasiswasController::class,'selectQb']);
+Route::get('/mahasiswa/insert-qb', [MahasiswasController::class, 'insertQb']);
+Route::get('/mahasiswa/update-qb', [MahasiswasController::class, 'updateQb']);
+Route::get('/mahasiswa/delete-qb', [MahasiswasController::class, 'deleteQb']);
+Route::get('/mahasiswa/select-qb', [MahasiswasController::class, 'selectQb']);
 
-Route::get('/mahasiswa/insert-elq',[MahasiswasController::class,'insertElq']);
-Route::get('/mahasiswa/update-elq',[MahasiswasController::class,'updateElq']);
-Route::get('/mahasiswa/delete-elq',[MahasiswasController::class,'deleteElq']);
-Route::get('/mahasiswa/select-elq',[MahasiswasController::class,'selectElq']);
+Route::get('/mahasiswa/insert-elq', [MahasiswasController::class, 'insertElq']);
+Route::get('/mahasiswa/update-elq', [MahasiswasController::class, 'updateElq']);
+Route::get('/mahasiswa/delete-elq', [MahasiswasController::class, 'deleteElq']);
+Route::get('/mahasiswa/select-elq', [MahasiswasController::class, 'selectElq']);
 
-Route::get('/prodi/all-join-facade',[ProdiController::class,'allJoinFacade']);
-Route::get('/prodi/all-join-elq',[ProdiController::class,'allJoinElq']);
-Route::get('/mahasiswa/all-join-elq',[MahasiswasController::class,'allJoinElq']);
+Route::get('/prodi/all-join-facade', [ProdiController::class, 'allJoinFacade']);
+Route::get('/prodi/all-join-elq', [ProdiController::class, 'allJoinElq']);
+Route::get('/mahasiswa/all-join-elq', [MahasiswasController::class, 'allJoinElq']);
 
-Route::get('/prodi/create',[ProdiController::class,'create']);
-Route::post('/prodi/store',[ProdiController::class,'store']);
+Route::get('/prodi/create', [ProdiController::class, 'create']);
+Route::post('/prodi/store', [ProdiController::class, 'store']);
 
-Route::get('/prodi',[ProdiController::class,'index'])->name('prodi.index');
+Route::post('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
+// Route::get('/prodi/{id}', [ProdiController::class, 'show'])->name('prodi.show');
+Route::get('/prodi/{prodi}', [ProdiController::class, 'show'])->name('prodi.show');
+
+Route::get('/prodi/{prodi}/edit', [ProdiController::class, 'edit'])->name('prodi.edit');
+Route::patch('/prodi/{prodi}', [ProdiController::class, 'update'])->name('prodi.update');
+
+Route::delete('/prodi/{prodi}', [ProdiController::class, 'destroy'])->name('prodi.destroy');
 // Route::get('/halo',function(){
 //     // return "Halo Semua";
 //     return "<a href='". route('call'). "'>" . route('call'). "</a>";
@@ -95,7 +99,7 @@ Route::get('/prodi',[ProdiController::class,'index'])->name('prodi.index');
 //     echo "<h2>Hubungi Kami</h2>";
 // })->name('call');
 
-// // Route::redirect('/contact','/hubungi'); 
+// // Route::redirect('/contact','/hubungi');
 
 // Route::prefix('/dosen')->group(function(){
 //     Route::get('/jadwal',function(){
@@ -106,5 +110,3 @@ Route::get('/prodi',[ProdiController::class,'index'])->name('prodi.index');
 //     return "<h2>Materi Perkuliahan</h2>";
 //     });
 // });
-
-
